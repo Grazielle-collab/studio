@@ -8,7 +8,7 @@ export default function Home() {
       <main className="bg-[#f2eded] text-[#111111] min-h-screen font-[family-name:var(--font-montserrat)]">
       <Sidebar />
       {/* HERO */}
-      <section className="flex flex-col items-center justify-center pl-0 md:pl-25 h-screen px-6 text-center">
+      <section className="flex flex-col items-center justify-center pl-0 md:pl-24 h-screen px-6 text-center">
 
         {/* LOGO */}
         <Image

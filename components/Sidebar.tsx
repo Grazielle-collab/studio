@@ -30,8 +30,8 @@ export default function Sidebar() {
 
       {/* SIDEBAR */}
       <div
-    className={`fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#e9e2db] z-50 transition-transform duration-500 ${
-    open ? "translate-x-0" : "translate-x-full"
+    className={`fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#e9e2db] z-50 transition-all duration-500 ${
+    open ? "translate-x-0 visible" : "translate-x-full invisible"
     }`}
     >
         {/* FECHAR */}
@@ -43,7 +43,7 @@ export default function Sidebar() {
         </button>
 
         {/* MENU */}
-        <div className="flex flex-col justify-center h-full px-16">
+        <div className="flex flex-col justify-center h-full px-16 pt-20">
 
           <nav className="flex flex-col gap-10">
 
