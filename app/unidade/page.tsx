@@ -26,7 +26,7 @@ export default function Unidade() {
 
           <div className="overflow-hidden">
             <Image
-              src="/bancada.jpeg"
+              src="/cafe.jpeg"
               alt="Cardeal Studio"
               width={700}
               height={900}
@@ -46,7 +46,7 @@ export default function Unidade() {
 
           <div className="overflow-hidden">
             <Image
-              src="/artista_Rafael.jpeg"
+              src="/bc.jpeg"
               alt="Cardeal Studio"
               width={700}
               height={900}
