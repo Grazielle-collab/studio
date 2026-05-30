@@ -26,7 +26,7 @@ export default function Unidade() {
 
           <div className="overflow-hidden">
             <Image
-              src="/cafe.jpeg"
+              src="/cafe.png"
               alt="Cardeal Studio"
               width={700}
               height={900}
