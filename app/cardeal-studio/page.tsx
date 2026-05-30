@@ -12,7 +12,7 @@ export default function CardealStudio() {
           Cardeal Studio
         </p>
 
-        <h1 className="mt-8 text-6xl md:text-8xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+        <h1 className="mt-8 text-3xl md:text-8xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
           Beleza como expressão artística.
         </h1>
 

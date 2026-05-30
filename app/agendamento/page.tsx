@@ -16,7 +16,7 @@ export default function Agendamento() {
             Agendamento
           </p>
 
-          <h1 className="mt-8 text-6xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+          <h1 className="mt-8 text-3xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
             Inicie sua experiência Cardeal.
           </h1>
 

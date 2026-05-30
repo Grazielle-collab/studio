@@ -26,7 +26,7 @@ export default function Home() {
 
         {/* BOTÃO */}
         <a
-          href="https://wa.me/5511997907029?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio%20✨"
+          href="https://wa.me/5511997907029?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio%20"
           target="_blank"
           className="mt-14 border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
         >

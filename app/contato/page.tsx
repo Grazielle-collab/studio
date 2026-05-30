@@ -15,7 +15,7 @@ export default function Contato() {
             Contato
           </p>
 
-          <h1 className="mt-8 text-6xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+          <h1 className="mt-8 text-3xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
             Conexões que vão além da estética.
           </h1>
 

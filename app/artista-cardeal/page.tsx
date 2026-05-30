@@ -14,9 +14,9 @@ export default function ArtistaCardeal() {
           <Image
             src="/artista_Rafael.jpeg"
             alt="Artista Cardeal"
-            width={700}
+            width={350}
             height={900}
-            className="w-full h-[750px] object-cover"
+            className="w-full h-[350px] object-cover"
           />
         </div>
 
@@ -27,7 +27,7 @@ export default function ArtistaCardeal() {
             Artista Cardeal
           </p>
 
-          <h1 className="mt-8 text-6xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+          <h1 className="mt-8 text-3xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
             Transformando beleza em assinatura.
           </h1>
 
