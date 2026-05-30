@@ -41,7 +41,7 @@ export default function Home() {
 //////
 
 {/* GALERIA */}
-<section className="px-6 md:px-16 py-32">
+<section className="px-6 md:px-16 pt-20 py-32">
 
   <div className="mb-20 text-center">
     <p className="uppercase tracking-[8px] text-sm text-neutral-500">
