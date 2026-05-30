@@ -14,7 +14,7 @@ export default function ArtistaCardeal() {
           <Image
             src="/artista_Rafael.jpeg"
             alt="Artista Cardeal"
-            width={700}
+            width={600}
             height={900}
             className="w-full h-[350px] object-cover"
           />
