@@ -53,7 +53,7 @@ export default function Contato() {
               </p>
 
               <p className="text-xl">
-                @cardealstudio
+                @cardealstudio_
               </p>
             </div>
 
