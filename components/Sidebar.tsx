@@ -49,42 +49,42 @@ export default function Sidebar() {
 
             <Link
               href="/"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Home
             </Link>
 
             <Link
               href="/cardeal-studio"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Cardeal Studio
             </Link>
 
             <Link
               href="/unidade"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Unidade
             </Link>
 
             <Link
               href="/agendamento"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Agendamento
             </Link>
 
             <Link
               href="/artista-cardeal"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Artista Cardeal
             </Link>
 
             <Link
               href="/contato"
-              className="text-5xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
+              className="text-3xl font-[family-name:var(--font-montserrat)] font-light hover:translate-x-2 transition duration-300"
             >
               Contato
             </Link>
@@ -101,7 +101,7 @@ export default function Sidebar() {
     </Link>
 
     <Link
-        href="https://instagram.com/cardealstudio"
+        href="https://instagram.com/cardealstudio_"
         target="_blank"
         className="hover:opacity-60 transition duration-300"
     >
