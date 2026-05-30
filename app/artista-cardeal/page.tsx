@@ -16,7 +16,7 @@ export default function ArtistaCardeal() {
             alt="Artista Cardeal"
             width={600}
             height={900}
-            className="w-full h-[350px] object-cover"
+            className="w-full h-[500px] object-cover"
           />
         </div>
 
@@ -27,7 +27,7 @@ export default function ArtistaCardeal() {
             Artista Cardeal
           </p>
 
-          <h1 className="mt-8 text-3xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+          <h1 className="mt-8 text-4xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
             Transformando beleza em assinatura.
           </h1>
 
