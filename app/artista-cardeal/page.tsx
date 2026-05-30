@@ -16,7 +16,7 @@ export default function ArtistaCardeal() {
             alt="Artista Cardeal"
             width={700}
             height={900}
-            className="w-full h-[500px] object-cover"
+            className="w-full h-auto"
           />
         </div>
 
