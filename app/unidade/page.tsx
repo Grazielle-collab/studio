@@ -28,9 +28,9 @@ export default function Unidade() {
             <Image
               src="/cafe.png"
               alt="Cardeal Studio"
-              width={700}
+              width={350}
               height={900}
-              className="w-full h-[700px] object-cover hover:scale-105 transition duration-700"
+              className="w-full h-[350px] object-cover hover:scale-105 transition duration-700"
             />
           </div>
 
@@ -38,9 +38,9 @@ export default function Unidade() {
             <Image
               src="/bey.jpeg"
               alt="Cardeal Studio"
-              width={700}
+              width={350}
               height={900}
-              className="w-full h-[700px] object-cover hover:scale-105 transition duration-700"
+              className="w-full h-[350px] object-cover hover:scale-105 transition duration-700"
             />
           </div>
 
@@ -48,9 +48,9 @@ export default function Unidade() {
             <Image
               src="/bc.jpeg"
               alt="Cardeal Studio"
-              width={700}
+              width={350}
               height={900}
-              className="w-full h-[700px] object-cover hover:scale-105 transition duration-700"
+              className="w-full h-[350px] object-cover hover:scale-105 transition duration-700"
             />
           </div>
 
