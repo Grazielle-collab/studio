@@ -18,6 +18,10 @@ export default function ArtistaCardeal() {
             height={900}
             className="w-full h-auto"
           />
+          {/* NOME ABAIXO DA FOTO */}
+          <p className="text-center mt-4 text-sm uppercase tracking-[4px] text-neutral-500">
+            Rafael Valério Cardeal
+          </p>
         </div>
 
         {/* TEXTO */}
@@ -27,7 +31,7 @@ export default function ArtistaCardeal() {
             Artista Cardeal
           </p>
 
-          <h1 className="mt-8 text-4xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
+          <h1 className="mt-8 text-3xl md:text-7xl font-[family-name:var(--font-montserrat)] font-light leading-tight">
             Transformando beleza em assinatura.
           </h1>
 
