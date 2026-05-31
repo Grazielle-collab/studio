@@ -43,7 +43,7 @@ export default function PoliticaPrivacidade() {
           <section>
             <h3 className="text-xl font-medium mb-4">1. Geral</h3>
             <p className="mb-4">
-              O Cardeal Studio respeita a sua privacidade e sabe que Você ("Você") se importa em saber como os seus Dados Pessoais 
+              O Cardeal Studio respeita a sua privacidade e sabe que Você se importa em saber como os seus Dados Pessoais 
               são usados e compartilhados. Por isso, agradecemos a sua confiança e garantimos que faremos o tratamento dos seus 
               Dados Pessoais de maneira cuidadosa e sensata, em conformidade com a Lei nº 13.709/2018 ("Lei Geral de Proteção de Dados Pessoais").
             </p>
