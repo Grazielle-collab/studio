@@ -29,7 +29,7 @@ export default function Contato() {
             </div>
             <div>
               <p className="uppercase tracking-[4px] text-sm text-neutral-500 mb-4">Telefone</p>
-              <p className="text-xl">+55 (11) 99790-7029</p>
+              <p className="text-xl">+55 (11) 926938136</p>
             </div>
             <div>
               <p className="uppercase tracking-[4px] text-sm text-neutral-500 mb-4">Instagram</p>
@@ -45,7 +45,7 @@ export default function Contato() {
             className="space-y-10"
           >
             {/* Redirecionar para uma página de obrigado após enviar */}
-            <input type="hidden" name="_next" value="https://seu-site.com/obrigado" />
+            <input type="hidden" name="_next" value="https://cardealstudio.com/obrigado" />
             {/* Desativar captcha (opcional, mas recomendado) */}
             <input type="hidden" name="_captcha" value="false" />
             

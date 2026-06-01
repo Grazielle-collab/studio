@@ -86,7 +86,7 @@ export default function Sidebar() {
 
           <div className="flex gap-6 mt-20">
             <Link
-              href="https://wa.me/5511997907029"
+              href="https://wa.me/5511926938136?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio%20"
               target="_blank"
               className="hover:opacity-60 transition duration-300"
             >
