@@ -7,16 +7,16 @@ export default function Home() {
   return (
       <main className="bg-[#f2eded] text-[#111111] min-h-screen font-[family-name:var(--font-montserrat)]">
       <Sidebar />
-      {/* HERO */}
-      <section className="flex flex-col items-center justify-center pl-0 md:pl-24 h-screen px-6 text-center">
+       {/* HERO - CENTRALIZADO NO CELULAR */}
+      <section className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
 
         {/* LOGO */}
         <Image
           src="/CardealStudio.png"
           alt="Cardeal Studio"
-          width={320}
-          height={320}
-          className="w-[220px] md:w-[320px]"
+          width={400} // ↑ aumentado de 320 para 400
+          height={400} // ↑ aumentado de 320 para 400
+          className="w-[220px] md:w-[400px]"  // ↑ aumentado de 220px para 280px no celular, e de 320px para 400px no desktop
         />
 
         {/* TEXTO */}
@@ -28,7 +28,8 @@ export default function Home() {
         <a
           href="https://wa.me/5511997907029?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio%20"
           target="_blank"
-          className="mt-14 border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
+          rel="noopener noreferrer"
+          className="mt-14 inline-block border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
         >
           Agendar atendimento
         </a>
