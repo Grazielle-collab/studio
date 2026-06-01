@@ -2,18 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-// import { MessageCircle, Instagram } from "lucide-react";
-// Adicione a importação dos novos ícones do react-icons
 import { FiMessageCircle, FiInstagram } from "react-icons/fi";
 
 export default function Sidebar() {
-
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      
-      {/* BOTÃO MENU - AGORA NÃO É MAIS FIXO */}
+      {/* BOTÃO MENU */}
       <div className="flex justify-end pt-10 pr-10">
         <button
           onClick={() => setOpen(true)}
@@ -29,7 +25,7 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {/* SIDEBAR - CONTINUA FIXA PARA ABRIR SOBRE O CONTEÚDO */}
+      {/* SIDEBAR */}
       <div
         className={`fixed top-0 right-0 h-full w-full md:w-[500px] bg-[#e9e2db] z-50 transition-all duration-500 ${
           open ? "translate-x-0 visible" : "translate-x-full invisible"
@@ -87,7 +83,7 @@ export default function Sidebar() {
               Contato
             </Link>
           </nav>
-          
+
           <div className="flex gap-6 mt-20">
             <Link
               href="https://wa.me/5511997907029"
