@@ -16,10 +16,10 @@ export default function PoliticaPrivacidade() {
         </Link>
 
         {/* Título principal */}
-        <h1 className="text-4xl md:text-5xl font-[family-name:var(--font-montserrat)] font-light mb-4">
+        <h1 className="text-4xl md:text-5xl font-[family-name:var(--font-montserrat)] font-light mb-4 text-[#111111]">
           POLÍTICA DE PRIVACIDADE
         </h1>
-        <h2 className="text-2xl font-[family-name:var(--font-montserrat)] font-light mb-2">
+        <h2 className="text-2xl font-[family-name:var(--font-montserrat)] font-light mb-2 text-[#111111]">
           CARDEAL STUDIO
         </h2>
         
@@ -30,7 +30,7 @@ export default function PoliticaPrivacidade() {
         {/* Introdução */}
         <div className="space-y-8">
           <div className="bg-white/50 p-6 rounded-lg">
-            <p className="text-lg font-medium mb-4">
+            <p className="text-lg font-medium mb-4 text-[#111111]">
               Olá! Seja bem-vindo(a) à Política de Privacidade do Cardeal Studio.
             </p>
             <p>
