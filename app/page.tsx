@@ -5,11 +5,11 @@ import Sidebar from "@/components/Sidebar";
 
 export default function Home() {
   return (
-    <main className="bg-[#f2eded] text-[#111111] min-h-screen font-[family-name:var(--font-montserrat)]">
+      <main className="bg-[#f2eded] text-[#111111] min-h-screen font-[family-name:var(--font-montserrat)]">
       <Sidebar />
-
       {/* HERO */}
       <section className="flex flex-col items-center justify-center pl-0 md:pl-24 h-screen px-6 text-center">
+
         {/* LOGO */}
         <Image
           src="/CardealStudio.png"
@@ -28,56 +28,63 @@ export default function Home() {
         <a
           href="https://wa.me/5511997907029?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio%20"
           target="_blank"
-          rel="noopener noreferrer"
           className="mt-14 border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
         >
           Agendar atendimento
         </a>
-      </section>
 
-      {/* GALERIA */}
-      <section className="px-6 md:px-16 pt-20 py-32">
-        <div className="mb-20 text-center">
-          <p className="uppercase tracking-[8px] text-sm text-neutral-500">
-            Experiência Cardeal
-          </p>
-          <h2 className="mt-6 text-5xl md:text-6xl font-[family-name:var(--font-cormorant)] font-light">
-            Galeria
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="overflow-hidden">
-            <Image
-              src="/cafe.png"  // ← SUBSTITUA PELO NOME DA SUA IMAGEM
-              alt="Cardeal Studio"
-              width={500}
-              height={700}
-              className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
-            />
-          </div>
-
-          <div className="overflow-hidden md:mt-20">
-            <Image
-              src="/bey.jpeg"  // ← SUBSTITUA PELO NOME DA SUA IMAGEM
-              alt="Cardeal Studio"
-              width={500}
-              height={700}
-              className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
-            />
-          </div>
-
-          <div className="overflow-hidden">
-            <Image
-              src="/bc.jpeg"   // ← SUBSTITUA PELO NOME DA SUA IMAGEM
-              alt="Cardeal Studio"
-              width={500}
-              height={700}
-              className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
-            />
-          </div>
-        </div>
       </section>
     </main>
   );
 }
+
+//////
+
+{/* GALERIA */}
+<section className="px-6 md:px-16 pt-20 py-32">
+
+  <div className="mb-20 text-center">
+    <p className="uppercase tracking-[8px] text-sm text-neutral-500">
+      Experiência Cardeal
+    </p>
+
+    <h2 className="mt-6 text-5xl md:text-6xl font-[family-name:var(--font-cormorant)] font-light">
+      Galeria
+    </h2>
+  </div>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="overflow-hidden">
+      <Image
+        src="/file.svg"
+        alt="Cardeal Studio"
+        width={500}
+        height={700}
+        className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
+      />
+    </div>
+
+    <div className="overflow-hidden md:mt-20">
+      <Image
+        src="/globe.svg"
+        alt="Cardeal Studio"
+        width={500}
+        height={700}
+        className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
+      />
+    </div>
+
+    <div className="overflow-hidden">
+      <Image
+        src="/vercel.svg"
+        alt="Cardeal Studio"
+        width={500}
+        height={700}
+        className="w-full h-[650px] object-cover hover:scale-105 transition duration-700"
+      />
+    </div>
+
+  </div>
+
+</section>
