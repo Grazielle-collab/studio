@@ -155,7 +155,7 @@ export default function PoliticaPrivacidade() {
               <br />
               <strong>WhatsApp:</strong>{' '}
               <a href="https://wa.me/551192693-8136" className="underline hover:opacity-60 text-black">
-                (11) 99790-7029
+                (11) 92693-8136
               </a>
             </p>
           </section>
