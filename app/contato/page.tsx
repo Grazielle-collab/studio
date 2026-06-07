@@ -29,7 +29,7 @@ export default function Contato() {
             </div>
             <div>
               <p className="uppercase tracking-[4px] text-sm text-neutral-500 mb-4">Telefone</p>
-              <p className="text-xl">+55 (11) 926938136</p>
+              <p className="text-xl">+55 (11) 92693-8136</p>
             </div>
             <div>
               <p className="uppercase tracking-[4px] text-sm text-neutral-500 mb-4">Instagram</p>
