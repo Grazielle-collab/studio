@@ -1,18 +1,55 @@
-"use client";
+// studio/app/contato/page.tsx
+'use client';
 
 import Sidebar from "@/components/Sidebar";
 import { useState } from "react";
+import { crmService } from "@/services/crmService";
 
 export default function Contato() {
-  const [status, setStatus] = useState("");
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    mensagem: '',
+  });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      // Envia para o CRM
+      const resultado = await crmService.enviarLead({
+        nome: formData.nome,
+        email: formData.email,
+        telefone: formData.telefone,
+        origem: 'Site - Contato',
+        mensagem: formData.mensagem,
+      });
+
+      console.log('Lead enviado com sucesso:', resultado);
+      setStatus('success');
+      
+      // Limpa o formulário
+      setFormData({ nome: '', email: '', telefone: '', mensagem: '' });
+      
+      // Redireciona após 2 segundos
+      setTimeout(() => {
+        window.location.href = '/obrigado';
+      }, 2000);
+      
+    } catch (error) {
+      console.error('Erro ao enviar:', error);
+      setStatus('error');
+    }
+  };
 
   return (
     <main className="bg-[#f3efea] text-[#111111] min-h-screen font-[family-name:var(--font-montserrat)]">
-
       <Sidebar />
 
       <section className="max-w-6xl mx-auto px-8 md:px-20 py-40">
-
         <div className="max-w-3xl">
           <p className="uppercase tracking-[8px] text-sm text-neutral-500">Contato</p>
           <h1 className="mt-8 text-3xl md:text-7xl font-light leading-tight">
@@ -21,7 +58,7 @@ export default function Contato() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-24 mt-28">
-
+          {/* INFORMAÇÕES DE CONTATO */}
           <div className="space-y-12">
             <div>
               <p className="uppercase tracking-[4px] text-sm text-neutral-500 mb-4">Email</p>
@@ -37,24 +74,16 @@ export default function Contato() {
             </div>
           </div>
 
-          {/* FORMULÁRIO COM FORMSUBMIT */}
-          <form 
-            action="https://formsubmit.co/contato@cardealstudio.com" 
-            method="POST"
-            onSubmit={() => setStatus("enviando")}
-            className="space-y-10"
-          >
-            {/* Redirecionar para uma página de obrigado após enviar */}
-            <input type="hidden" name="_next" value="https://cardealstudio.com/obrigado" />
-            {/* Desativar captcha (opcional, mas recomendado) */}
-            <input type="hidden" name="_captcha" value="false" />
-            
+          {/* FORMULÁRIO - AGORA ENVIA PARA O CRM */}
+          <form onSubmit={handleSubmit} className="space-y-10">
             <div>
               <input
                 name="nome"
                 type="text"
                 placeholder="Nome"
                 required
+                value={formData.nome}
+                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
                 className="w-full bg-transparent border-b border-neutral-400 pb-4 outline-none placeholder:text-neutral-500"
               />
             </div>
@@ -64,7 +93,21 @@ export default function Contato() {
                 name="email"
                 type="email"
                 placeholder="E-mail"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full bg-transparent border-b border-neutral-400 pb-4 outline-none placeholder:text-neutral-500"
+              />
+            </div>
+
+            {/* NOVO: Campo de telefone */}
+            <div>
+              <input
+                name="telefone"
+                type="tel"
+                placeholder="Telefone (com DDD)"
                 required
+                value={formData.telefone}
+                onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
                 className="w-full bg-transparent border-b border-neutral-400 pb-4 outline-none placeholder:text-neutral-500"
               />
             </div>
@@ -75,22 +118,29 @@ export default function Contato() {
                 placeholder="Mensagem, parcerias ou experiências..."
                 rows={6}
                 required
+                value={formData.mensagem}
+                onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
                 className="w-full bg-transparent border-b border-neutral-400 pb-4 outline-none placeholder:text-neutral-500 resize-none"
               />
             </div>
 
             <button
               type="submit"
-              className="border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
+              disabled={status === 'loading'}
+              className="border border-black px-10 py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {status === "enviando" ? "Enviando..." : "Enviar mensagem"}
+              {status === 'loading' ? 'Enviando...' : 'Enviar mensagem'}
             </button>
+
+            {status === 'success' && (
+              <p className="text-green-600 text-sm">✓ Mensagem enviada com sucesso!</p>
+            )}
+            {status === 'error' && (
+              <p className="text-red-600 text-sm">✗ Erro ao enviar. Tente novamente.</p>
+            )}
           </form>
-
         </div>
-
       </section>
-
     </main>
   );
 }
