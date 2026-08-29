@@ -15,7 +15,26 @@ export default function Agendamento() {
     hora: '',
     observacoes: '',
   });
+  
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const formatarTelefone = (valor: string) => {
+  const limpo = valor.replace(/\D/g, '');
+  if (limpo.length <= 2) return limpo;
+  if (limpo.length <= 7) return `(${limpo.slice(0, 2)}) ${limpo.slice(2)}`;
+  return `(${limpo.slice(0, 2)}) ${limpo.slice(2, 7)}-${limpo.slice(7, 11)}`;
+};
+
+// No input do telefone:
+<input
+  type="tel"
+  required
+  value={formData.telefone}
+  onChange={(e) => {
+    const value = e.target.value.replace(/\D/g, '').slice(0, 11);
+    setFormData({ ...formData, telefone: value });
+  }}
+  placeholder="(11) 99999-9999"
+/>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
