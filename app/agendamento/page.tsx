@@ -2,10 +2,14 @@
 "use client";
 
 import Sidebar from "@/components/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { crmService } from "@/services/crmService";
 
 export default function Agendamento() {
+  const searchParams = useSearchParams();
+  const [origem, setOrigem] = useState("Site - Agendamento");
+  
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -17,24 +21,22 @@ export default function Agendamento() {
   });
   
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const formatarTelefone = (valor: string) => {
-  const limpo = valor.replace(/\D/g, '');
-  if (limpo.length <= 2) return limpo;
-  if (limpo.length <= 7) return `(${limpo.slice(0, 2)}) ${limpo.slice(2)}`;
-  return `(${limpo.slice(0, 2)}) ${limpo.slice(2, 7)}-${limpo.slice(7, 11)}`;
-};
 
-// No input do telefone:
-<input
-  type="tel"
-  required
-  value={formData.telefone}
-  onChange={(e) => {
-    const value = e.target.value.replace(/\D/g, '').slice(0, 11);
-    setFormData({ ...formData, telefone: value });
-  }}
-  placeholder="(11) 99999-9999"
-/>
+  // Captura a origem da URL
+  useEffect(() => {
+    const origemParam = searchParams.get('origem');
+    if (origemParam) {
+      const origens = {
+        'instagram': 'Instagram - Cardeal Studio',
+        'google': 'Google - Cardeal Studio',
+        'facebook': 'Facebook - Cardeal Studio',
+        'whatsapp': 'WhatsApp - Cardeal Studio',
+        'email': 'E-mail Marketing - Cardeal Studio',
+        'indicacao': 'Indicação - Cardeal Studio',
+      };
+      setOrigem(origens[origemParam as keyof typeof origens] || origemParam);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ export default function Agendamento() {
         nome: formData.nome,
         telefone: formData.telefone,
         email: formData.email,
-        origem: 'Site - Agendamento',
+        origem: origem,
         mensagem: `
           Serviço: ${formData.servico}
           Data: ${formData.data}

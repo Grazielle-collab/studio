@@ -1,11 +1,15 @@
 // studio/app/contato/page.tsx
-'use client';
+"use client";
 
 import Sidebar from "@/components/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { crmService } from "@/services/crmService";
 
 export default function Contato() {
+  const searchParams = useSearchParams();
+  const [origem, setOrigem] = useState("Site - Contato");
+  
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -14,33 +18,46 @@ export default function Contato() {
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+  // Captura a origem da URL
+  useEffect(() => {
+    const origemParam = searchParams.get('origem');
+    if (origemParam) {
+      const origens = {
+        'instagram': 'Instagram - Cardeal Studio',
+        'google': 'Google - Cardeal Studio',
+        'facebook': 'Facebook - Cardeal Studio',
+        'whatsapp': 'WhatsApp - Cardeal Studio',
+        'email': 'E-mail Marketing - Cardeal Studio',
+        'indicacao': 'Indicação - Cardeal Studio',
+      };
+      setOrigem(origens[origemParam as keyof typeof origens] || origemParam);
+    }
+  }, [searchParams]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
 
     try {
-      // Envia para o CRM
       const resultado = await crmService.enviarLead({
         nome: formData.nome,
         email: formData.email,
         telefone: formData.telefone,
-        origem: 'Site - Contato',
+        origem: origem,
         mensagem: formData.mensagem,
       });
 
-      console.log('Lead enviado com sucesso:', resultado);
+      console.log('Lead enviado:', resultado);
       setStatus('success');
       
-      // Limpa o formulário
       setFormData({ nome: '', email: '', telefone: '', mensagem: '' });
       
-      // Redireciona após 2 segundos
       setTimeout(() => {
         window.location.href = '/obrigado';
       }, 2000);
       
     } catch (error) {
-      console.error('Erro ao enviar:', error);
+      console.error('Erro:', error);
       setStatus('error');
     }
   };
@@ -74,7 +91,7 @@ export default function Contato() {
             </div>
           </div>
 
-          {/* FORMULÁRIO - AGORA ENVIA PARA O CRM */}
+          {/* FORMULÁRIO */}
           <form onSubmit={handleSubmit} className="space-y-10">
             <div>
               <input
@@ -99,7 +116,6 @@ export default function Contato() {
               />
             </div>
 
-            {/* NOVO: Campo de telefone */}
             <div>
               <input
                 name="telefone"
