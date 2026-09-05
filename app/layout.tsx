@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import Analytics from "@/components/Analytics";
+
+// ============================================
+// FONTES
+// ============================================
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -13,10 +18,18 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+// ============================================
+// METADATA
+// ============================================
+
 export const metadata: Metadata = {
   title: "CardealStudio",
   description: "Beleza sofisticada e experiências exclusivas.",
 };
+
+// ============================================
+// LAYOUT PRINCIPAL
+// ============================================
 
 export default function RootLayout({
   children,
@@ -28,6 +41,8 @@ export default function RootLayout({
       <body
         className={`${cormorant.variable} ${montserrat.variable}`}
       >
+        {/* EMPRESA ID DO CARDEAL STUDIO */}
+        <Analytics empresaId={1} />
         {children}
       </body>
     </html>
