@@ -8,7 +8,7 @@ import { crmService } from "@/services/crmService";
 
 export default function Contato() {
   const searchParams = useSearchParams();
-  const [origem, setOrigem] = useState("Site - Contato");
+  const [origem, setOrigem] = useState("Cardeal Studio - Site - Contato");
   
   const [formData, setFormData] = useState({
     nome: '',

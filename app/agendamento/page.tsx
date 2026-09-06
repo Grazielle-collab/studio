@@ -8,7 +8,7 @@ import { crmService } from "@/services/crmService";
 
 export default function Agendamento() {
   const searchParams = useSearchParams();
-  const [origem, setOrigem] = useState("Site - Agendamento");
+  const [origem, setOrigem] = useState("Cardeal Studio - Site - Agendamento");
   
   const [formData, setFormData] = useState({
     nome: '',
