@@ -2,7 +2,8 @@
 import axios from 'axios';
 
 // URL do seu CRM Django (ajuste para o endereço correto)
-const CRM_API_URL = 'http://127.0.0.1:8000/api';
+// const CRM_API_URL = 'http://127.0.0.1:8000/api';
+const CRM_API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
 export interface LeadData {
   nome: string;
