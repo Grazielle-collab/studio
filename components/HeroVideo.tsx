@@ -33,7 +33,7 @@ export default function HeroVideo() {
       {/* CONTEÚDO SOBREPOSTO */}
       <div className="relative z-20 flex flex-col items-center text-center px-6 text-white">
         <Image
-          src="/CardealStudio(1).png"
+          src="/CS.png"
           alt="Cardeal Studio"
           width={400}
           height={400}
