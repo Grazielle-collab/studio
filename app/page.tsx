@@ -3,6 +3,8 @@
 
 import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
+import AgendamentoForm from "@/components/AgendamentoForm";
+import ContatoForm from "@/components/ContatoForm";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { MapPin, Menu as MenuIcon, X } from "lucide-react";
@@ -296,26 +298,24 @@ export default function Home() {
             confirmar seu horário.
           </p>
 
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-12 block text-center border border-black py-4 uppercase tracking-[4px] text-sm hover:bg-black hover:text-white transition duration-500"
-          >
-            Agendar pelo WhatsApp
-          </a>
+          <AgendamentoForm />
 
-          <p className="mt-6 text-center text-sm text-neutral-500">
-            Prefere ligar?{" "}
-            <a href="tel:+5511926938136" className="underline">
-              (11) 92693-8136
+          <p className="mt-8 text-center text-sm text-neutral-500">
+            Prefere agendar pelo WhatsApp?{" "}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:opacity-60 transition"
+            >
+              Clique aqui
             </a>
           </p>
         </div>
       </section>
 
       {/* ============================================ */}
-      {/* CONTATO */}
+      {/* CONTATO E PARCERIAS */}
       {/* ============================================ */}
       <section id="contato" className="py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto">
@@ -327,43 +327,70 @@ export default function Home() {
             Conexões que vão além da estética.
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-12 mt-20 text-center">
-            <div>
-              <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                Email
-              </p>
-              <a
-                href="mailto:contato@cardealstudio.com"
-                className="text-lg hover:opacity-60 transition"
-              >
-                contato@cardealstudio.com
-              </a>
+          <div className="grid md:grid-cols-2 gap-20 mt-20">
+            {/* Informações de contato */}
+            <div className="space-y-12">
+              <div>
+                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
+                  Email
+                </p>
+                <a
+                  href="mailto:contato@cardealstudio.com"
+                  className="text-xl hover:opacity-60 transition"
+                >
+                  contato@cardealstudio.com
+                </a>
+              </div>
+
+              <div>
+                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
+                  Telefone
+                </p>
+                <a
+                  href="tel:+5511926938136"
+                  className="text-xl hover:opacity-60 transition"
+                >
+                  +55 (11) 92693-8136
+                </a>
+              </div>
+
+              <div>
+                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
+                  Instagram
+                </p>
+                <a
+                  href="https://instagram.com/cardealstudio_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl hover:opacity-60 transition"
+                >
+                  @cardealstudio_
+                </a>
+              </div>
+
+              <div>
+                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
+                  Endereço
+                </p>
+                <a
+                  href={enderecoGoogleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl hover:opacity-60 transition"
+                >
+                  R. Alfredo Pujol, 545 — Santana
+                  <br />
+                  São Paulo, SP
+                </a>
+              </div>
             </div>
 
+            {/* Formulário de contato/parceria */}
             <div>
-              <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                Telefone
+              <p className="text-xs uppercase tracking-[4px] text-neutral-500 mb-8">
+                Envie uma mensagem
               </p>
-              <a
-                href="tel:+5511926938136"
-                className="text-lg hover:opacity-60 transition"
-              >
-                +55 (11) 92693-8136
-              </a>
-            </div>
-
-            <div>
-              <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                Instagram
-              </p>
-              <a
-                href="https://instagram.com/cardealstudio_"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg hover:opacity-60 transition"
-              >
-                @cardealstudio_
-              </a>
+              <ContatoForm />
             </div>
           </div>
         </div>
