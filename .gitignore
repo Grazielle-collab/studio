@@ -1,9 +1,9 @@
 
 ---
 
-## 2. `.gitignore` — garanta que esteja assim
+## 2. `.gitignore` — revise antes de commitar
 
-Abra (ou crie) `studio/.gitignore`:
+Confirme que o `studio/.gitignore` tem **no mínimo** estas linhas:
 
 ```gitignore
 # Dependências
@@ -46,12 +46,12 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 
-# ⚠️ Python (CRM vive em outro repo)
+# Python (se ainda tiver algo na pasta)
 venv/
 __pycache__/
 *.pyc
 
-# Temporários / arquivos antigos
+# Arquivos temporários / antigos
 *-old.png
 *-old.jpeg
 *-old.jpg
