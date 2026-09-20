@@ -1,15 +1,17 @@
 // studio/app/page.tsx
 "use client";
 
-import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
 import AgendamentoForm from "@/components/AgendamentoForm";
 import ContatoForm from "@/components/ContatoForm";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import ImageReveal from "@/components/ImageReveal";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { MapPin, Menu as MenuIcon, X } from "lucide-react";
+import { MapPin, Menu as MenuIcon, X, ArrowUp } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { scrollToSection, scrollToTop } from "@/hooks/useSmoothScroll";
 
 const NAV_LINKS = [
@@ -25,11 +27,16 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Detecta seção ativa no scroll
   const activeSection = useActiveSection(
     NAV_LINKS.map((l) => l.href),
     120
   );
+
+  // Direção do scroll (para o botão "voltar ao topo")
+  const scrollDirection = useScrollDirection(10);
+
+  // Botão aparece quando rola para baixo e some quando rola para cima
+  const showBackToTop = scrollDirection === "down";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -37,7 +44,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Bloqueia scroll quando o menu mobile está aberto
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -51,25 +57,20 @@ export default function Home() {
   const whatsappLink =
     "https://wa.me/5511926938136?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio";
 
-  // Clique em link do menu → rola suave com offset
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: string
   ) => {
     e.preventDefault();
     setMenuOpen(false);
-    // Pequeno delay para o menu fechar antes de rolar (UX melhor no mobile)
     setTimeout(() => scrollToSection(id, 88), 50);
   };
 
   return (
     <main className="bg-[#f2eded] text-[#111111] min-h-screen">
-      {/* Barra de progresso de leitura */}
       <ScrollProgressBar />
 
-      {/* ============================================ */}
-      {/* HEADER FIXO */}
-      {/* ============================================ */}
+      {/* HEADER */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           scrolled
@@ -78,7 +79,6 @@ export default function Home() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo — clica e volta ao topo */}
           <button
             onClick={scrollToTop}
             className={`font-serif text-2xl tracking-wide transition-colors duration-500 cursor-pointer ${
@@ -89,7 +89,6 @@ export default function Home() {
             Cardeal Studio
           </button>
 
-          {/* Menu desktop */}
           <nav className="hidden md:flex items-center gap-10">
             {NAV_LINKS.map((link) => (
               <a
@@ -105,7 +104,6 @@ export default function Home() {
                 }`}
               >
                 {link.label}
-                {/* Sublinhado animado para seção ativa */}
                 <span
                   className={`absolute -bottom-2 left-0 h-[1px] bg-current transition-all duration-500 ${
                     activeSection === link.href ? "w-full" : "w-0"
@@ -115,7 +113,6 @@ export default function Home() {
             ))}
           </nav>
 
-          {/* Botão mobile */}
           <button
             onClick={() => setMenuOpen(true)}
             className={`md:hidden flex items-center gap-3 transition-colors duration-500 ${
@@ -129,9 +126,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ============================================ */}
-      {/* MENU MOBILE OVERLAY */}
-      {/* ============================================ */}
+      {/* MENU MOBILE */}
       <div
         className={`fixed inset-0 bg-[#e9e2db] z-[60] transition-all duration-500 md:hidden ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -154,9 +149,7 @@ export default function Home() {
               className={`font-serif text-4xl font-light hover:opacity-60 transition-all duration-500 ${
                 activeSection === link.href ? "opacity-100" : "opacity-70"
               } ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
-              style={{
-                transitionDelay: menuOpen ? `${index * 60}ms` : "0ms",
-              }}
+              style={{ transitionDelay: menuOpen ? `${index * 60}ms` : "0ms" }}
             >
               {link.label}
             </a>
@@ -164,51 +157,59 @@ export default function Home() {
         </nav>
       </div>
 
-      {/* ============================================ */}
-      {/* HERO COM VÍDEO */}
-      {/* ============================================ */}
+      {/* HERO */}
       <HeroVideo />
 
-      {/* ============================================ */}
       {/* SOBRE */}
-      {/* ============================================ */}
       <section id="sobre" className="py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto">
-          <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
-            Cardeal Studio
-          </p>
+          <RevealOnScroll>
+            <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
+              Cardeal Studio
+            </p>
+          </RevealOnScroll>
 
-          <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
-            Beleza como expressão artística.
-          </h2>
+          <RevealOnScroll delay={100}>
+            <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
+              Beleza como expressão artística.
+            </h2>
+          </RevealOnScroll>
 
           <div className="mt-16 space-y-8 text-lg leading-[42px] text-neutral-700 max-w-3xl mx-auto text-center md:text-left">
-            <p>
-              O Cardeal Studio nasce da união entre sofisticação, identidade e experiência.
-            </p>
-            <p>
-              Cada atendimento é pensado de forma personalizada, respeitando a
-              essência, a individualidade e a beleza única de cada cliente.
-            </p>
-            <p>
-              Mais do que estética, criamos conexões, sensações e momentos que
-              transformam autocuidado em arte.
-            </p>
+            <RevealOnScroll delay={200}>
+              <p>
+                O Cardeal Studio nasce da união entre sofisticação, identidade e experiência.
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll delay={300}>
+              <p>
+                Cada atendimento é pensado de forma personalizada, respeitando a
+                essência, a individualidade e a beleza única de cada cliente.
+              </p>
+            </RevealOnScroll>
+            <RevealOnScroll delay={400}>
+              <p>
+                Mais do que estética, criamos conexões, sensações e momentos que
+                transformam autocuidado em arte.
+              </p>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* GALERIA */}
-      {/* ============================================ */}
       <section id="galeria" className="py-32 px-6 md:px-16">
         <div className="mb-20 text-center">
-          <p className="uppercase tracking-[8px] text-xs text-neutral-500">
-            Experiência Cardeal
-          </p>
-          <h2 className="mt-6 font-serif text-4xl md:text-6xl font-light">
-            Galeria
-          </h2>
+          <RevealOnScroll>
+            <p className="uppercase tracking-[8px] text-xs text-neutral-500">
+              Experiência Cardeal
+            </p>
+          </RevealOnScroll>
+          <RevealOnScroll delay={100}>
+            <h2 className="mt-6 font-serif text-4xl md:text-6xl font-light">
+              Galeria
+            </h2>
+          </RevealOnScroll>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -217,93 +218,109 @@ export default function Home() {
               key={i}
               className={`overflow-hidden ${i === 1 ? "md:mt-20" : ""}`}
             >
-              <Image
+              <ImageReveal
                 src={src}
                 alt={`Cardeal Studio ${i + 1}`}
                 width={500}
                 height={700}
-                className="w-full h-[450px] md:h-[650px] object-cover hover:scale-105 transition duration-700"
+                delay={i * 150}
+                className="w-full h-[450px] md:h-[650px]"
+                imgClassName="w-full h-full object-cover hover:scale-105 transition duration-700"
               />
             </div>
           ))}
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* ARTISTA */}
-      {/* ============================================ */}
       <section id="artista" className="py-32 px-6 md:px-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="overflow-hidden">
-            <Image
+          <div>
+            <ImageReveal
               src="/artista_Rafael.jpeg"
               alt="Rafael Valério Cardeal"
               width={700}
               height={900}
-              className="w-full h-auto"
+              className="w-full"
+              imgClassName="w-full h-auto"
             />
-            <p className="text-center mt-4 text-xs uppercase tracking-[4px] text-neutral-500">
-              Rafael Valério Cardeal
-            </p>
+            <RevealOnScroll delay={300}>
+              <p className="text-center mt-4 text-xs uppercase tracking-[4px] text-neutral-500">
+                Rafael Valério Cardeal
+              </p>
+            </RevealOnScroll>
           </div>
 
           <div>
-            <p className="uppercase tracking-[8px] text-xs text-neutral-500">
-              Artista Cardeal
-            </p>
+            <RevealOnScroll direction="left" delay={100}>
+              <p className="uppercase tracking-[8px] text-xs text-neutral-500">
+                Artista Cardeal
+              </p>
+            </RevealOnScroll>
 
-            <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight">
-              Transformando beleza em assinatura.
-            </h2>
+            <RevealOnScroll direction="left" delay={200}>
+              <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight">
+                Transformando beleza em assinatura.
+              </h2>
+            </RevealOnScroll>
 
             <div className="mt-10 space-y-6 text-lg leading-[38px] text-neutral-700">
-              <p>
-                Com uma visão sofisticada e sensível à individualidade, o Artista
-                Cardeal desenvolve experiências que unem estética, autenticidade
-                e expressão pessoal.
-              </p>
-              <p>
-                Sua trajetória é marcada pela busca constante por excelência,
-                inovação e um atendimento profundamente personalizado.
-              </p>
-              <p>
-                Mais do que tendências, seu trabalho valoriza identidade,
-                presença e a beleza única de cada cliente.
-              </p>
+              <RevealOnScroll direction="left" delay={300}>
+                <p>
+                  Com uma visão sofisticada e sensível à individualidade, o Artista
+                  Cardeal desenvolve experiências que unem estética, autenticidade
+                  e expressão pessoal.
+                </p>
+              </RevealOnScroll>
+              <RevealOnScroll direction="left" delay={400}>
+                <p>
+                  Sua trajetória é marcada pela busca constante por excelência,
+                  inovação e um atendimento profundamente personalizado.
+                </p>
+              </RevealOnScroll>
+              <RevealOnScroll direction="left" delay={500}>
+                <p>
+                  Mais do que tendências, seu trabalho valoriza identidade,
+                  presença e a beleza única de cada cliente.
+                </p>
+              </RevealOnScroll>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* UNIDADE */}
-      {/* ============================================ */}
       <section id="unidade" className="py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="uppercase tracking-[8px] text-xs text-neutral-500">
-            Unidade
-          </p>
+          <RevealOnScroll>
+            <p className="uppercase tracking-[8px] text-xs text-neutral-500">
+              Unidade
+            </p>
+          </RevealOnScroll>
 
-          <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight">
-            Um espaço pensado para experiências exclusivas.
-          </h2>
+          <RevealOnScroll delay={100}>
+            <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight">
+              Um espaço pensado para experiências exclusivas.
+            </h2>
+          </RevealOnScroll>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mt-20 max-w-5xl mx-auto">
           {["/cafe.png", "/bey.jpeg", "/bc.jpeg"].map((src, i) => (
-            <div key={i} className="overflow-hidden rounded-lg">
-              <Image
-                src={src}
-                alt="Cardeal Studio"
-                width={400}
-                height={500}
-                className="w-full h-[280px] object-cover hover:scale-105 transition duration-700"
-              />
-            </div>
+            <ImageReveal
+              key={i}
+              src={src}
+              alt="Cardeal Studio"
+              width={400}
+              height={500}
+              delay={i * 150}
+              className="rounded-lg w-full h-[280px]"
+              imgClassName="w-full h-full object-cover hover:scale-105 transition duration-700"
+            />
           ))}
         </div>
 
-        <div className="mt-20 max-w-5xl mx-auto">
+        <RevealOnScroll delay={200} className="mt-20 max-w-5xl mx-auto">
           <a
             href={enderecoGoogleMaps}
             target="_blank"
@@ -322,126 +339,105 @@ export default function Home() {
               Clique para abrir no Google Maps <span>→</span>
             </p>
           </a>
-        </div>
+        </RevealOnScroll>
       </section>
 
-      {/* ============================================ */}
       {/* AGENDAMENTO */}
-      {/* ============================================ */}
       <section id="agendamento" className="py-32 px-6 md:px-20 bg-[#e9e2db]">
         <div className="max-w-2xl mx-auto">
-          <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
-            Agendamento
-          </p>
+          <RevealOnScroll>
+            <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
+              Agendamento
+            </p>
+          </RevealOnScroll>
 
-          <h2 className="mt-8 font-serif text-4xl md:text-5xl font-light leading-tight text-center">
-            Inicie sua experiência Cardeal.
-          </h2>
+          <RevealOnScroll delay={100}>
+            <h2 className="mt-8 font-serif text-4xl md:text-5xl font-light leading-tight text-center">
+              Inicie sua experiência Cardeal.
+            </h2>
+          </RevealOnScroll>
 
-          <p className="mt-8 text-lg leading-9 text-neutral-700 text-center">
-            Preencha o formulário abaixo e nossa equipe entrará em contato para
-            confirmar seu horário.
-          </p>
+          <RevealOnScroll delay={200}>
+            <p className="mt-8 text-lg leading-9 text-neutral-700 text-center">
+              Preencha o formulário abaixo e nossa equipe entrará em contato para
+              confirmar seu horário.
+            </p>
+          </RevealOnScroll>
 
-          <AgendamentoForm />
+          <RevealOnScroll delay={300}>
+            <AgendamentoForm />
+          </RevealOnScroll>
 
-          <p className="mt-8 text-center text-sm text-neutral-500">
-            Prefere agendar pelo WhatsApp?{" "}
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:opacity-60 transition"
-            >
-              Clique aqui
-            </a>
-          </p>
+          <RevealOnScroll delay={400}>
+            <p className="mt-8 text-center text-sm text-neutral-500">
+              Prefere agendar pelo WhatsApp?{" "}
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-60 transition"
+              >
+                Clique aqui
+              </a>
+            </p>
+          </RevealOnScroll>
         </div>
       </section>
 
-      {/* ============================================ */}
-      {/* CONTATO E PARCERIAS */}
-      {/* ============================================ */}
+      {/* CONTATO */}
       <section id="contato" className="py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto">
-          <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
-            Contato
-          </p>
+          <RevealOnScroll>
+            <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
+              Contato
+            </p>
+          </RevealOnScroll>
 
-          <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
-            Conexões que vão além da estética.
-          </h2>
+          <RevealOnScroll delay={100}>
+            <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
+              Conexões que vão além da estética.
+            </h2>
+          </RevealOnScroll>
 
           <div className="grid md:grid-cols-2 gap-20 mt-20">
             <div className="space-y-12">
-              <div>
-                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                  Email
-                </p>
-                <a
-                  href="mailto:contato@cardealstudio.com"
-                  className="text-xl hover:opacity-60 transition"
-                >
-                  contato@cardealstudio.com
-                </a>
-              </div>
-
-              <div>
-                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                  Telefone
-                </p>
-                <a
-                  href="tel:+5511926938136"
-                  className="text-xl hover:opacity-60 transition"
-                >
-                  +55 (11) 92693-8136
-                </a>
-              </div>
-
-              <div>
-                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                  Instagram
-                </p>
-                <a
-                  href="https://instagram.com/cardealstudio_"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl hover:opacity-60 transition"
-                >
-                  @cardealstudio_
-                </a>
-              </div>
-
-              <div>
-                <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
-                  Endereço
-                </p>
-                <a
-                  href={enderecoGoogleMaps}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl hover:opacity-60 transition"
-                >
-                  R. Alfredo Pujol, 545 — Santana
-                  <br />
-                  São Paulo, SP
-                </a>
-              </div>
+              {[
+                { label: "Email", value: "contato@cardealstudio.com", href: "mailto:contato@cardealstudio.com" },
+                { label: "Telefone", value: "+55 (11) 92693-8136", href: "tel:+5511926938136" },
+                { label: "Instagram", value: "@cardealstudio_", href: "https://instagram.com/cardealstudio_", external: true },
+                { label: "Endereço", value: "R. Alfredo Pujol, 545 — Santana\nSão Paulo, SP", href: enderecoGoogleMaps, external: true },
+              ].map((item, i) => (
+                <RevealOnScroll key={item.label} direction="right" delay={i * 100}>
+                  <div>
+                    <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
+                      {item.label}
+                    </p>
+                    <a
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      className="text-xl hover:opacity-60 transition whitespace-pre-line"
+                    >
+                      {item.value}
+                    </a>
+                  </div>
+                </RevealOnScroll>
+              ))}
             </div>
 
-            <div>
-              <p className="text-xs uppercase tracking-[4px] text-neutral-500 mb-8">
-                Envie uma mensagem
-              </p>
-              <ContatoForm />
-            </div>
+            <RevealOnScroll direction="left" delay={200}>
+              <div>
+                <p className="text-xs uppercase tracking-[4px] text-neutral-500 mb-8">
+                  Envie uma mensagem
+                </p>
+                <ContatoForm />
+              </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
 
-      {/* ============================================ */}
       {/* FOOTER */}
-      {/* ============================================ */}
       <footer className="py-12 px-6 border-t border-neutral-300">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <button
@@ -464,35 +460,20 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ============================================ */}
-      {/* BOTÃO VOLTAR AO TOPO (aparece após rolar) */}
-      {/* ============================================ */}
+      {/* BOTÃO VOLTAR AO TOPO — aparece só rolando para baixo */}
       <button
         onClick={scrollToTop}
         aria-label="Voltar ao topo"
         className={`fixed bottom-24 right-6 z-40 bg-white text-black border border-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 hover:bg-black hover:text-white ${
-          scrolled
+          showBackToTop
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 19V5M5 12l7-7 7 7" />
-        </svg>
+        <ArrowUp size={18} strokeWidth={1.5} />
       </button>
 
-      {/* ============================================ */}
       {/* WHATSAPP FLUTUANTE */}
-      {/* ============================================ */}
       <a
         href={whatsappLink}
         target="_blank"
