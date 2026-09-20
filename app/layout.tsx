@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 // ============================================
 // FONTES
@@ -23,7 +24,7 @@ const montserrat = Montserrat({
 // ============================================
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cardealstudio.com"), // ⚠️ troque pelo domínio real
+  metadataBase: new URL("https://cardealstudio.com"),
   title: {
     default: "Cardeal Studio",
     template: "%s | Cardeal Studio",
@@ -31,10 +32,8 @@ export const metadata: Metadata = {
   description:
     "Beleza sofisticada, atendimento personalizado e experiências exclusivas.",
 
-  // Manifest PWA
   manifest: "/site.webmanifest",
 
-  // Ícones
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -47,7 +46,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
 
-  // Open Graph
   openGraph: {
     title: "Cardeal Studio",
     description:
@@ -58,13 +56,13 @@ export const metadata: Metadata = {
     type: "website",
   },
 
-  // Twitter / X
   twitter: {
     card: "summary_large_image",
     title: "Cardeal Studio",
     description:
       "Beleza sofisticada, atendimento personalizado e experiências exclusivas.",
   },
+
   keywords: [
     "Cardeal Studio",
     "salão de beleza",
@@ -90,7 +88,7 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${cormorant.variable} antialiased`}
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

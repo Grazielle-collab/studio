@@ -1,11 +1,8 @@
-// studio/hooks/useScrollProgress.ts
+// studio/hooks/useScrollProgress.ts (versão compatível com Lenis)
 "use client";
 
 import { useEffect, useState } from "react";
 
-/**
- * Retorna o progresso de leitura da página (0 a 100).
- */
 export function useScrollProgress() {
   const [progress, setProgress] = useState(0);
 

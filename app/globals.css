@@ -1,5 +1,6 @@
 /* studio/app/globals.css */
 @import "tailwindcss";
+@import 'lenis/dist/lenis.css';
 
 :root {
   --background: #f2eded;
