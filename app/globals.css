@@ -1,3 +1,4 @@
+/* studio/app/globals.css */
 @import "tailwindcss";
 
 :root {
@@ -13,7 +14,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: 88px; /* compensa o header fixo em âncoras nativas */
 }
 
 body {
@@ -21,4 +22,22 @@ body {
   color: var(--foreground);
   font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+/* Scrollbar customizada (opcional, mas deixa o site mais elegante) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f2eded;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111111;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
 }

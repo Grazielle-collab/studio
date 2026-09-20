@@ -5,20 +5,45 @@ import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
 import AgendamentoForm from "@/components/AgendamentoForm";
 import ContatoForm from "@/components/ContatoForm";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { MapPin, Menu as MenuIcon, X } from "lucide-react";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { scrollToSection, scrollToTop } from "@/hooks/useSmoothScroll";
+
+const NAV_LINKS = [
+  { href: "sobre", label: "Sobre" },
+  { href: "galeria", label: "Galeria" },
+  { href: "artista", label: "Artista" },
+  { href: "unidade", label: "Unidade" },
+  { href: "agendamento", label: "Agendamento" },
+  { href: "contato", label: "Contato" },
+];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Muda o fundo do header quando rolar
+  // Detecta seção ativa no scroll
+  const activeSection = useActiveSection(
+    NAV_LINKS.map((l) => l.href),
+    120
+  );
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Bloqueia scroll quando o menu mobile está aberto
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const enderecoGoogleMaps =
     "https://www.google.com/maps/dir/?api=1&destination=R.+Alfredo+Pujol,+545+-+Santana,+São+Paulo+-+SP,+02017-010";
@@ -26,17 +51,21 @@ export default function Home() {
   const whatsappLink =
     "https://wa.me/5511926938136?text=Olá!%20Gostaria%20de%20conhecer%20os%20serviços%20do%20CardealStudio";
 
-  const navLinks = [
-    { href: "#sobre", label: "Sobre" },
-    { href: "#galeria", label: "Galeria" },
-    { href: "#artista", label: "Artista" },
-    { href: "#unidade", label: "Unidade" },
-    { href: "#agendamento", label: "Agendamento" },
-    { href: "#contato", label: "Contato" },
-  ];
+  // Clique em link do menu → rola suave com offset
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    e.preventDefault();
+    setMenuOpen(false);
+    // Pequeno delay para o menu fechar antes de rolar (UX melhor no mobile)
+    setTimeout(() => scrollToSection(id, 88), 50);
+  };
 
   return (
     <main className="bg-[#f2eded] text-[#111111] min-h-screen">
+      {/* Barra de progresso de leitura */}
+      <ScrollProgressBar />
 
       {/* ============================================ */}
       {/* HEADER FIXO */}
@@ -49,26 +78,39 @@ export default function Home() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link
-            href="/"
-            className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${
+          {/* Logo — clica e volta ao topo */}
+          <button
+            onClick={scrollToTop}
+            className={`font-serif text-2xl tracking-wide transition-colors duration-500 cursor-pointer ${
               scrolled ? "text-black" : "text-white"
             }`}
+            aria-label="Voltar ao topo"
           >
             Cardeal Studio
-          </Link>
+          </button>
 
           {/* Menu desktop */}
           <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
-                className={`uppercase tracking-[3px] text-xs hover:opacity-60 transition-colors duration-500 ${
+                href={`#${link.href}`}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`uppercase tracking-[3px] text-xs transition-all duration-500 relative ${
                   scrolled ? "text-black" : "text-white"
+                } ${
+                  activeSection === link.href
+                    ? "opacity-100"
+                    : "opacity-60 hover:opacity-100"
                 }`}
               >
                 {link.label}
+                {/* Sublinhado animado para seção ativa */}
+                <span
+                  className={`absolute -bottom-2 left-0 h-[1px] bg-current transition-all duration-500 ${
+                    activeSection === link.href ? "w-full" : "w-0"
+                  }`}
+                />
               </a>
             ))}
           </nav>
@@ -104,12 +146,17 @@ export default function Home() {
         </button>
 
         <nav className="flex flex-col items-center justify-center h-full gap-10">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link, index) => (
             <a
               key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-serif text-4xl font-light hover:opacity-60 transition"
+              href={`#${link.href}`}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className={`font-serif text-4xl font-light hover:opacity-60 transition-all duration-500 ${
+                activeSection === link.href ? "opacity-100" : "opacity-70"
+              } ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
+              style={{
+                transitionDelay: menuOpen ? `${index * 60}ms` : "0ms",
+              }}
             >
               {link.label}
             </a>
@@ -242,7 +289,6 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Galeria da unidade */}
         <div className="grid md:grid-cols-3 gap-6 mt-20 max-w-5xl mx-auto">
           {["/cafe.png", "/bey.jpeg", "/bc.jpeg"].map((src, i) => (
             <div key={i} className="overflow-hidden rounded-lg">
@@ -257,7 +303,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Card de localização */}
         <div className="mt-20 max-w-5xl mx-auto">
           <a
             href={enderecoGoogleMaps}
@@ -328,7 +373,6 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-20 mt-20">
-            {/* Informações de contato */}
             <div className="space-y-12">
               <div>
                 <p className="uppercase tracking-[4px] text-xs text-neutral-500 mb-4">
@@ -385,7 +429,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Formulário de contato/parceria */}
             <div>
               <p className="text-xs uppercase tracking-[4px] text-neutral-500 mb-8">
                 Envie uma mensagem
@@ -401,7 +444,12 @@ export default function Home() {
       {/* ============================================ */}
       <footer className="py-12 px-6 border-t border-neutral-300">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="font-serif text-xl">Cardeal Studio</p>
+          <button
+            onClick={scrollToTop}
+            className="font-serif text-xl hover:opacity-60 transition cursor-pointer"
+          >
+            Cardeal Studio
+          </button>
 
           <p className="text-xs text-neutral-500 text-center">
             © {new Date().getFullYear()} Cardeal Studio. Todos os direitos reservados.
@@ -415,6 +463,32 @@ export default function Home() {
           </Link>
         </div>
       </footer>
+
+      {/* ============================================ */}
+      {/* BOTÃO VOLTAR AO TOPO (aparece após rolar) */}
+      {/* ============================================ */}
+      <button
+        onClick={scrollToTop}
+        aria-label="Voltar ao topo"
+        className={`fixed bottom-24 right-6 z-40 bg-white text-black border border-black w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 hover:bg-black hover:text-white ${
+          scrolled
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+      </button>
 
       {/* ============================================ */}
       {/* WHATSAPP FLUTUANTE */}

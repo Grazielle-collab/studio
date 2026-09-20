@@ -26,6 +26,20 @@ export default function AgendamentoForm() {
     observacoes: "",
   });
 
+  const handleWhatsApp = (mensagem: string) => {
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
+  
+  // Google Analytics (se usar)
+  if (typeof window !== "undefined" && (window as any).gtag) {
+    (window as any).gtag("event", "whatsapp_click", {
+      event_category: "engagement",
+      event_label: "agendamento",
+    });
+  }
+  
+  window.open(url, "_blank");
+};
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
