@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   description:
     "Beleza sofisticada, atendimento personalizado e experiências exclusivas.",
 
+  // ✅ Verificação do Google Search Console
+  verification: {
+    google: "nm3M_UifGEfQo4M1WGemRNdfrO_RS-IChop69iZyEBU",
+  },
+
   manifest: "/site.webmanifest",
 
   icons: {
