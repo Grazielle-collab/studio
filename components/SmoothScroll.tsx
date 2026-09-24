@@ -4,13 +4,6 @@
 import { useEffect, ReactNode } from "react";
 import Lenis from "lenis";
 
-// Tipagem global do window.lenis
-declare global {
-  interface Window {
-    lenis?: Lenis;
-  }
-}
-
 interface SmoothScrollProps {
   children: ReactNode;
 }
@@ -24,8 +17,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       touchMultiplier: 2,
     });
 
-    // Expõe globalmente para os hooks (scrollToSection, scrollToTop)
-    window.lenis = lenis;
+    const win = window as unknown as { lenis?: Lenis };
+    win.lenis = lenis;
 
     let rafId: number;
     function raf(time: number) {
@@ -37,7 +30,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
-      window.lenis = undefined;
+      delete win.lenis;
     };
   }, []);
 

@@ -5,17 +5,11 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 
 interface RevealOnScrollProps {
   children: ReactNode;
-  /** Delay em ms para efeito cascata */
   delay?: number;
-  /** Direção de entrada */
   direction?: "up" | "down" | "left" | "right";
-  /** Distância do deslocamento em px */
   distance?: number;
-  /** Duração em ms */
   duration?: number;
-  /** Classes extras */
   className?: string;
-  /** Se deve disparar apenas uma vez */
   once?: boolean;
 }
 
@@ -35,23 +29,30 @@ export default function RevealOnScroll({
     const el = ref.current;
     if (!el) return;
 
+    // ✅ Fallback: força visibilidade após 800ms caso o observer falhe
+    const fallback = setTimeout(() => setVisible(true), 800);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
+          clearTimeout(fallback);
           if (once) observer.unobserve(el);
         } else if (!once) {
           setVisible(false);
         }
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -60px 0px",
+        threshold: 0.05, // mais sensível
+        rootMargin: "0px 0px -20px 0px", // menos restritivo
       }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, [once]);
 
   const translate = {

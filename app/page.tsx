@@ -32,10 +32,7 @@ export default function Home() {
     120
   );
 
-  // Direção do scroll (para o botão "voltar ao topo")
   const scrollDirection = useScrollDirection(10);
-
-  // Botão aparece quando rola para baixo e some quando rola para cima
   const showBackToTop = scrollDirection === "down";
 
   useEffect(() => {
@@ -161,7 +158,7 @@ export default function Home() {
       <HeroVideo />
 
       {/* SOBRE */}
-      <section id="sobre" className="py-32 px-6 md:px-20">
+      <section id="sobre" className="py-20 md:py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
@@ -198,7 +195,7 @@ export default function Home() {
       </section>
 
       {/* GALERIA */}
-      <section id="galeria" className="py-32 px-6 md:px-16">
+      <section id="galeria" className="py-20 md:py-32 px-6 md:px-16">
         <div className="mb-20 text-center">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500">
@@ -233,7 +230,7 @@ export default function Home() {
       </section>
 
       {/* ARTISTA */}
-      <section id="artista" className="py-32 px-6 md:px-20">
+      <section id="artista" className="py-20 md:py-32 px-6 md:px-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
           <div>
             <ImageReveal
@@ -290,7 +287,7 @@ export default function Home() {
       </section>
 
       {/* UNIDADE */}
-      <section id="unidade" className="py-32 px-6 md:px-20">
+      <section id="unidade" className="py-20 md:py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto text-center">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500">
@@ -343,7 +340,7 @@ export default function Home() {
       </section>
 
       {/* AGENDAMENTO */}
-      <section id="agendamento" className="py-32 px-6 md:px-20 bg-[#e9e2db]">
+      <section id="agendamento" className="py-20 md:py-32 px-6 md:px-20 bg-[#e9e2db]">
         <div className="max-w-2xl mx-auto">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
@@ -385,7 +382,7 @@ export default function Home() {
       </section>
 
       {/* CONTATO */}
-      <section id="contato" className="py-32 px-6 md:px-20">
+      <section id="contato" className="py-20 md:py-32 px-6 md:px-20">
         <div className="max-w-5xl mx-auto">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
@@ -460,7 +457,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* BOTÃO VOLTAR AO TOPO — aparece só rolando para baixo */}
+      {/* BOTÃO VOLTAR AO TOPO */}
       <button
         onClick={scrollToTop}
         aria-label="Voltar ao topo"

@@ -5,6 +5,9 @@ import { useState } from "react";
 
 const servicos = [
   "Corte",
+  "Escova",
+  "Hidratação",
+  "Mechas",
   "Coloração",
   "Progressiva",
   "Manicure",
@@ -26,24 +29,9 @@ export default function AgendamentoForm() {
     observacoes: "",
   });
 
-  const handleWhatsApp = (mensagem: string) => {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
-  
-  // Google Analytics (se usar)
-  if (typeof window !== "undefined" && (window as any).gtag) {
-    (window as any).gtag("event", "whatsapp_click", {
-      event_category: "engagement",
-      event_label: "agendamento",
-    });
-  }
-  
-  window.open(url, "_blank");
-};
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Monta a mensagem formatada em Markdown do WhatsApp
     const mensagem = [
       "*Novo agendamento pelo site*",
       "",
@@ -59,11 +47,18 @@ export default function AgendamentoForm() {
       .filter(Boolean)
       .join("\n");
 
-    // Abre WhatsApp com a mensagem pré-preenchida
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
+
+    // Google Analytics (se configurado)
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "whatsapp_click", {
+        event_category: "engagement",
+        event_label: "agendamento",
+      });
+    }
+
     window.open(url, "_blank");
 
-    // Limpa o formulário
     setFormData({
       nome: "",
       telefone: "",
@@ -121,24 +116,53 @@ export default function AgendamentoForm() {
         </div>
       </div>
 
-      {/* Serviço */}
+      {/* Serviço — select customizado */}
       <div>
         <label className="block text-xs uppercase tracking-[4px] text-neutral-500 mb-2">
           Serviço *
         </label>
-        <select
-          required
-          value={formData.servico}
-          onChange={(e) => setFormData({ ...formData, servico: e.target.value })}
-          className="w-full bg-transparent border-b border-neutral-400 pb-3 outline-none focus:border-black transition cursor-pointer"
-        >
-          <option value="">Selecione um serviço</option>
-          {servicos.map((s) => (
-            <option key={s} value={s}>
-              {s}
+        <div className="relative">
+          <select
+            required
+            value={formData.servico}
+            onChange={(e) => setFormData({ ...formData, servico: e.target.value })}
+            className="w-full bg-transparent border-b border-neutral-400 pb-3 pr-8 outline-none focus:border-black transition cursor-pointer appearance-none text-[#111111]"
+            style={{
+              // Cor de fundo das opções quando o dropdown abre
+              // (funciona no Chrome, Edge, Firefox)
+            }}
+          >
+            <option value="" disabled className="text-neutral-400">
+              Selecione um serviço
             </option>
-          ))}
-        </select>
+            {servicos.map((s) => (
+              <option
+                key={s}
+                value={s}
+                className="bg-[#f2eded] text-[#111111] py-2"
+                style={{ backgroundColor: "#f2eded", color: "#111111" }}
+              >
+                {s}
+              </option>
+            ))}
+          </select>
+
+          {/* Seta customizada (substitui a nativa) */}
+          <div className="pointer-events-none absolute right-0 bottom-3 text-neutral-500">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* Data e Hora */}
@@ -152,7 +176,7 @@ export default function AgendamentoForm() {
             required
             value={formData.data}
             onChange={(e) => setFormData({ ...formData, data: e.target.value })}
-            className="w-full bg-transparent border-b border-neutral-400 pb-3 outline-none focus:border-black transition"
+            className="w-full bg-transparent border-b border-neutral-400 pb-3 outline-none focus:border-black transition cursor-pointer"
           />
         </div>
         <div>
@@ -164,7 +188,7 @@ export default function AgendamentoForm() {
             required
             value={formData.hora}
             onChange={(e) => setFormData({ ...formData, hora: e.target.value })}
-            className="w-full bg-transparent border-b border-neutral-400 pb-3 outline-none focus:border-black transition"
+            className="w-full bg-transparent border-b border-neutral-400 pb-3 outline-none focus:border-black transition cursor-pointer"
           />
         </div>
       </div>

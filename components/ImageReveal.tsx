@@ -23,37 +23,33 @@ export default function ImageReveal({
     const el = ref.current;
     if (!el) return;
 
-    // Fallback: se por algum motivo o observer não disparar em 800ms,
-    // força visibilidade (evita imagens "sumidas" para sempre)
-    const timeout = setTimeout(() => setVisible(true), 800);
+    // ✅ Fallback de 800ms
+    const fallback = setTimeout(() => setVisible(true), 800);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          clearTimeout(timeout);
+          clearTimeout(fallback);
           observer.unobserve(el);
         }
       },
       {
-        threshold: 0.01, // dispara com qualquer pixel visível
-        rootMargin: "0px 0px 0px 0px",
+        threshold: 0.05,
+        rootMargin: "0px 0px -20px 0px",
       }
     );
 
     observer.observe(el);
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(fallback);
       observer.disconnect();
     };
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`relative overflow-hidden ${className}`}
-    >
-      {/* Camada de "cortina" — desliza para a direita quando visível */}
+    <div ref={ref} className={`relative overflow-hidden ${className}`}>
+      {/* Camada de cortina */}
       <div
         className="absolute inset-0 bg-[#f2eded] z-10 pointer-events-none"
         style={{
