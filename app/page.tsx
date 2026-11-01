@@ -173,15 +173,16 @@ export default function Home() {
         className="relative pt-32 pb-32 md:py-32 px-6 md:px-20 overflow-hidden bg-[#F8F7F5]"
       >
         
-        {/* IMAGEM DE FUNDO (APENAS DESKTOP) */}
-        <div className="hidden md:flex absolute top-0 right-0 w-full md:w-[60%] h-full opacity-30 md:opacity-50 pointer-events-none select-none z-0 justify-end">
+        {/* IMAGEM DE FUNDO (APARECE EM TODAS AS TELAS) */}
+        <div className="absolute top-0 right-0 w-full md:w-[60%] h-full pointer-events-none select-none z-0 flex justify-end">
           <img
             src="/folhas.png"
             alt=""
-            className="w-full h-full object-contain object-right-top mix-blend-multiply"
+            className="w-full h-full object-contain object-right-top md:object-right mix-blend-multiply opacity-15 md:opacity-50"
             style={{
-              maskImage: "linear-gradient(to right, transparent 0%, black 40%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)",
+              // No celular, a máscara é vertical (some em cima e embaixo). No desktop, é horizontal (some na esquerda).
+              maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
             }}
           />
         </div>
@@ -200,7 +201,6 @@ export default function Home() {
             </h2>
           </RevealOnScroll>
 
-          {/* 👇 AQUI ESTÃO AS CORREÇÕES DE LEITURA NO MOBILE */}
           <div className="mt-12 md:mt-16 space-y-6 md:space-y-8 text-base md:text-lg leading-[28px] md:leading-[42px] text-neutral-700 max-w-3xl mx-auto text-left md:text-left">
             <RevealOnScroll delay={200}>
               <p>
