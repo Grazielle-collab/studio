@@ -168,12 +168,15 @@ export default function Home() {
       <HeroVideo />
 
       {/* SOBRE */}
-      <section id="sobre" className="relative py-20 md:py-32 px-6 md:px-20 overflow-hidden bg-[#F8F7F5]" >
+      <section 
+        id="sobre" 
+        className="relative pt-32 pb-32 md:py-32 px-6 md:px-20 overflow-hidden bg-[#F8F7F5]"
+      >
         
-        {/* IMAGEM DE FUNDO (DECORATIVA) */}
+        {/* IMAGEM DE FUNDO (APENAS DESKTOP) */}
         <div className="hidden md:flex absolute top-0 right-0 w-full md:w-[60%] h-full opacity-30 md:opacity-50 pointer-events-none select-none z-0 justify-end">
           <img
-            src="/folhas.png" // ⚠️ Confirme se o nome do arquivo na pasta public é exatamente este
+            src="/folhas.png"
             alt=""
             className="w-full h-full object-contain object-right-top mix-blend-multiply"
             style={{
@@ -183,7 +186,7 @@ export default function Home() {
           />
         </div>
 
-        {/* CONTEÚDO (Fica acima da imagem) */}
+        {/* CONTEÚDO */}
         <div className="relative z-10 max-w-5xl mx-auto">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
@@ -192,12 +195,13 @@ export default function Home() {
           </RevealOnScroll>
 
           <RevealOnScroll delay={100}>
-            <h2 className="mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
+            <h2 className="mt-6 md:mt-8 font-serif text-4xl md:text-6xl font-light leading-tight text-center">
               Beleza como expressão artística.
             </h2>
           </RevealOnScroll>
 
-          <div className="mt-16 space-y-8 text-lg leading-[42px] text-neutral-700 max-w-3xl mx-auto text-center md:text-left">
+          {/* 👇 AQUI ESTÃO AS CORREÇÕES DE LEITURA NO MOBILE */}
+          <div className="mt-12 md:mt-16 space-y-6 md:space-y-8 text-base md:text-lg leading-[28px] md:leading-[42px] text-neutral-700 max-w-3xl mx-auto text-left md:text-left">
             <RevealOnScroll delay={200}>
               <p>
                 O Cardeal Studio nasce da união entre sofisticação, identidade e experiência.
