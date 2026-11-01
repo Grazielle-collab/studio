@@ -1,6 +1,7 @@
 /* studio/app/globals.css */
 @import "tailwindcss";
 @import 'lenis/dist/lenis.css';
+@plugin "@tailwindcss/typography"; /* 👈 Adicione esta linha */
 
 :root {
   --background: #f2eded;
@@ -41,4 +42,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #333333;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

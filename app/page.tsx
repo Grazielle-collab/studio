@@ -7,6 +7,7 @@ import ContatoForm from "@/components/ContatoForm";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import ImageReveal from "@/components/ImageReveal";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { MapPin, Menu as MenuIcon, X, ArrowUp } from "lucide-react";
@@ -19,6 +20,7 @@ const NAV_LINKS = [
   { href: "galeria", label: "Galeria" },
   { href: "artista", label: "Artista" },
   { href: "unidade", label: "Unidade" },
+  { href: "/blog", label: "Blog" },
   { href: "agendamento", label: "Agendamento" },
   { href: "contato", label: "Contato" },
 ];
@@ -27,8 +29,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Filtra apenas os links que são âncoras (não começam com /) para o observer
   const activeSection = useActiveSection(
-    NAV_LINKS.map((l) => l.href),
+    NAV_LINKS.filter((l) => !l.href.startsWith("/")).map((l) => l.href),
     120
   );
 
@@ -56,11 +59,18 @@ export default function Home() {
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    id: string
+    link: { href: string; label: string }
   ) => {
+    // Se for um link de página (ex: /blog), deixa o Next.js navegar normalmente
+    if (link.href.startsWith("/")) {
+      setMenuOpen(false);
+      return;
+    }
+
+    // Se for âncora, previne o padrão e rola a tela
     e.preventDefault();
     setMenuOpen(false);
-    setTimeout(() => scrollToSection(id, 88), 50);
+    setTimeout(() => scrollToSection(link.href, 88), 50);
   };
 
   return (
@@ -90,8 +100,8 @@ export default function Home() {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
-                href={`#${link.href}`}
-                onClick={(e) => handleNavClick(e, link.href)}
+                href={link.href.startsWith("/") ? link.href : `#${link.href}`}
+                onClick={(e) => handleNavClick(e, link)}
                 className={`uppercase tracking-[3px] text-xs transition-all duration-500 relative ${
                   scrolled ? "text-black" : "text-white"
                 } ${
@@ -141,8 +151,8 @@ export default function Home() {
           {NAV_LINKS.map((link, index) => (
             <a
               key={link.href}
-              href={`#${link.href}`}
-              onClick={(e) => handleNavClick(e, link.href)}
+              href={link.href.startsWith("/") ? link.href : `#${link.href}`}
+              onClick={(e) => handleNavClick(e, link)}
               className={`font-serif text-4xl font-light hover:opacity-60 transition-all duration-500 ${
                 activeSection === link.href ? "opacity-100" : "opacity-70"
               } ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
@@ -158,8 +168,19 @@ export default function Home() {
       <HeroVideo />
 
       {/* SOBRE */}
-      <section id="sobre" className="py-20 md:py-32 px-6 md:px-20">
-        <div className="max-w-5xl mx-auto">
+      <section id="sobre" className="relative py-20 md:py-32 px-6 md:px-20 overflow-hidden bg-[#F8F7F5]" >
+        
+        {/* IMAGEM DE FUNDO (DECORATIVA) */}
+        <div className="absolute top-0 right-0 w-full md:w-[60%] h-full opacity-30 md:opacity-50 pointer-events-none select-none z-0 flex justify-end">
+          <img
+            src="/folhas.png" // ⚠️ Confirme se o nome do arquivo na pasta public é exatamente este
+            alt=""
+            className="w-full h-full object-contain object-right-top mix-blend-multiply"
+          />
+        </div>
+
+        {/* CONTEÚDO (Fica acima da imagem) */}
+        <div className="relative z-10 max-w-5xl mx-auto">
           <RevealOnScroll>
             <p className="uppercase tracking-[8px] text-xs text-neutral-500 text-center">
               Cardeal Studio
@@ -402,7 +423,7 @@ export default function Home() {
                 { label: "Email", value: "contato@cardealstudio.com", href: "mailto:contato@cardealstudio.com" },
                 { label: "Telefone", value: "+55 (11) 92693-8136", href: "tel:+5511926938136" },
                 { label: "Instagram", value: "@cardealstudio_", href: "https://instagram.com/cardealstudio_", external: true },
-                { label: "Endereço", value: "R. Alfredo Pujol, 545 — Santana\nSão Paulo, SP", href: enderecoGoogleMaps, external: true },
+                { label: "Endereço", value: "R. Alfredo Pujol, 545 — Santana\nSou Paulo, SP", href: enderecoGoogleMaps, external: true },
               ].map((item, i) => (
                 <RevealOnScroll key={item.label} direction="right" delay={i * 100}>
                   <div>
