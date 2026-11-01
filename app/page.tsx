@@ -178,7 +178,7 @@ export default function Home() {
           <img
             src="/folhas.png"
             alt=""
-            className="w-full h-full object-contain object-right-top md:object-right mix-blend-multiply opacity-15 md:opacity-50"
+            className="h-full w-auto max-w-none object-contain object-right-top mix-blend-multiply opacity-30 md:opacity-50"
             style={{
               // No celular, a máscara é vertical (some em cima e embaixo). No desktop, é horizontal (some na esquerda).
               maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
