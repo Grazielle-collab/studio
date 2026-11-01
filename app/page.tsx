@@ -181,8 +181,8 @@ export default function Home() {
             className="h-full w-auto max-w-none object-contain object-right-top mix-blend-multiply opacity-30 md:opacity-50"
             style={{
               // No celular, a máscara é vertical (some em cima e embaixo). No desktop, é horizontal (some na esquerda).
-              maskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)",
+              maskImage: "linear-gradient(to right, transparent 0%, black 40%)",
+              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 40%)",
             }}
           />
         </div>
